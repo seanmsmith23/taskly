@@ -14,3 +14,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+* Ignored because contains Twitter credentials
+/app/helpers/application_helper.rb

@@ -98,15 +98,27 @@ main {
 }
 
 #task-box {
-  padding-left: 1em;
-  padding-right: 1em;
-  font-size: 20px;
-  width: 70%;
+
+}
+
+.expand-list {
+  height: 15px;
+  width: 15px;
 }
 
 .task {
+  display: inline-block;
   margin: 10px 0px 0px 15px;
   padding: 1em;
   background-color: lightgrey;
   width: 70%;
 }
+
+.complete-button {
+  display: inline-block;
+}
+
+.delete-button {
+  display: inline-block;
+}
+

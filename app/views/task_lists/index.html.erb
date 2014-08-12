@@ -34,49 +34,52 @@
 
 
     <% flash.each do |type, msg| %>
-    <p><span style="background-color: lightgreen; border: solid green 2px; padding: 10px"><%= msg %></span></p>
+    <p class="flash"><span style="background-color: lightgreen; border: solid green 2px; padding: 10px"><%= msg %></span></p>
   <% end %>
 
 <% else %>
   <div id="all-task-lists">
     <% @task_lists.each do |task_list| %>
 
-      <section class="task-list">
+      <div class="this-task-list">
+        <section class="task-list">
 
-        <h1 style="display: inline-block"><%= link_to task_list.name, task_list_path(id: task_list.id)  %></h1>
-        <%= link_to "Edit", edit_task_list_path(id: task_list.id), method: :get %>
-        <div class="new-task" style="display: inline-block">
-          <%= link_to "+ Add Task", new_task_list_task_path(task_list_id: task_list.id) %>
-        </div>
+          <h1 style="display: inline-block"><%= link_to task_list.name, task_list_path(id: task_list.id)  %></h1>
+          <img src="http://www.clker.com/cliparts/9/e/2/2/13522327172045924093Right%20Arrow%20Button.svg.med.png" class="expand-list" data-task-id="<%= task_list.id %>">
+          <%= link_to "Edit", edit_task_list_path(id: task_list.id), method: :get %>
+          <div class="new-task" style="display: inline-block">
+            <%= link_to "+ Add Task", new_task_list_task_path(task_list_id: task_list.id) %>
+          </div>
 
-        <%= link_to "Completed", task_list_completed_index_path(task_list_id: task_list.id) %>
-        <%= link_to "Delete", task_list_path(id: task_list.id), method: :delete %>
+          <%= link_to "Completed", task_list_completed_index_path(task_list_id: task_list.id) %>
+          <%= link_to "Delete", task_list_path(id: task_list.id), method: :delete %>
 
-      </section>
+        </section>
 
-      <section class="task-box">
-        <% if task_list.tasks != [] %>
-          <% task_list.tasks.order(:due_date).each do |task| %>
+        <section class="task-box-<%= task_list.id %>">
+          <% if task_list.tasks != [] %>
+            <% task_list.tasks.order(:due_date).each do |task| %>
 
-            <% unless task.completed %>
+              <% unless task.completed %>
 
-              <p class="task" style="display: inline-block"><%= task.description %> (<%= (task.due_date - Date.today).to_i %> days) <%= names_to_display(task) %></p>
+                <p class="task" data-task-id="<%= task_list.id %>"><%= task.description %> (<%= (task.due_date - Date.today).to_i %> days) <%= names_to_display(task) %></p>
 
-              <div style="display: inline-block; position: relative; margin-left: -75px;">
-                <%= button_to "Delete", {controller: :tasks, action: 'destroy', id: task.id}, :method => :delete %>
-              </div>
-              <div style="display: inline-block; position: relative; margin-left: -150px;">
-                <%= button_to "Complete", {:controller => :completed,
-                                         :action => 'create',
-                                         :task_list_id => task.id }, :method => :post %>
-              </div>
+                <div style="display: inline-block; position: relative; margin-left: -75px;">
+                  <%= button_to "Delete", {controller: :tasks, action: 'destroy', id: task.id}, :method => :delete, class: "delete-button"%>
+                </div>
+                <div style="display: inline-block; position: relative; margin-left: -150px;">
+                  <%= button_to "Complete", {:controller => :completed,
+                                           :action => 'create',
+                                           :task_list_id => task.id }, :method => :post, class: "complete-button"%>
+                </div>
+              <% end %>
             <% end %>
+            <% end %>
+          <% if task_list.tasks.where(completed: true).length == task_list.tasks.length %>
+            <p class="task" style="text-align: center"><i>Nothing here to see!</i></p>
           <% end %>
-          <% end %>
-        <% if task_list.tasks.where(completed: true).length == task_list.tasks.length %>
-          <p class="task" style="text-align: center"><i>Nothing here to see!</i></p>
-        <% end %>
-      </section>
+        </section>
+      </div>
     <% end %>
   </div>
 <% end %>
