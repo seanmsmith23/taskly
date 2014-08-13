@@ -65,6 +65,11 @@ $(document).ready(function(){
     } else {
       $('.errors').remove();
       $input.parents('form').find('#submit-form-button').removeAttr("disabled");
+      if ($('#task_list_name').val().length > 20){
+        var string = $('#task_list_name').val();
+        var shortened = string.substr(0,19);
+        $('#task_list_name').val(shortened);
+      }
     }
   });
 
@@ -111,4 +116,6 @@ $(document).ready(function(){
     $a3.val("")
     $a4.val("")
   });
+
+
  });
