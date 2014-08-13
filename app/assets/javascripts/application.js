@@ -102,4 +102,13 @@ $(document).ready(function(){
       $description.parents('.container').remove('.errors');
     }
   });
+
+  $('.clear').click(function(){
+    $('#task_list_name').val("");
+    $description.val("");
+    $a1.val("")
+    $a2.val("")
+    $a3.val("")
+    $a4.val("")
+  });
  });
