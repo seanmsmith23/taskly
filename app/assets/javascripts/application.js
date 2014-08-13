@@ -21,11 +21,11 @@ $(document).ready(function(){
   $('.complete-button').hide();
 
   $('.expand-list').click(function(){
-    var $clicked = $(this)
+    var $clicked = $(this);
     var id = $(this).attr('data-task-id');
 
     $('.task').each(function(){
-      var $this = $(this)
+      var $this = $(this);
       if ($this.attr('data-task-id') != id){
         $this.parents('.this-task-list').find('.delete-button').hide();
         $this.parents('.this-task-list').find('.complete-button').hide();
@@ -47,7 +47,7 @@ $(document).ready(function(){
   });
 
   $('.task').each(function(){
-    var $this = $(this)
+    var $this = $(this);
     if ($this.attr('data-due-date') == 0 ){
       $this.parents('.this-task-list').find('.task').css('background-color', 'orange');
     }
@@ -56,8 +56,35 @@ $(document).ready(function(){
     }
   });
 
-  var $input = $('#task_list_name')
-  if ($input.val() == ""){
-    $input.parents('form').find('#submit-form-button').prop("disabled", true);
-  }
-});
+  var $input = $('#task_list_name');
+  $input.parents('form').find('#submit-form-button').prop("disabled", true);
+  $input.keyup(function(){
+    if ($input.val() == ""){
+      $input.parents('form').find('#submit-form-button').prop("disabled", true);
+    } else {
+      $input.parents('form').find('#submit-form-button').removeAttr("disabled");
+    }
+  });
+
+  var $a1 = $('#task_assigned_to');
+  var $a2 = $('#task_assigned_to_2');
+  var $a3 = $('#task_assigned_to_3');
+  var $a4 = $('#task_assigned_to_4');
+
+  var $description = $('#task_description');
+
+  var formElements = $a1.add($a2).add($a3).add($a4).add($description);
+
+  $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
+  formElements.bind('focusout focusout keyup', function(){
+    if ($description.val() == ""){
+      $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
+    }
+    else if ($a1.val() == "" && $a2.val() == "" && $a3.val() == "" && $a4.val() == "") {
+      $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
+    }
+    else {
+      $description.parents('form').find('#create-task-button').removeAttr("disabled");
+    }
+  });
+ });
