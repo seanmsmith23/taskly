@@ -61,7 +61,9 @@
 
               <% unless task.completed %>
 
-                <p class="task" data-task-id="<%= task_list.id %>"><%= task.description %> (<%= (task.due_date - Date.today).to_i %> days) <%= names_to_display(task) %></p>
+                <p class="task" data-task-id="<%= task_list.id %>" data-due-date="<%= (task.due_date - Date.today).to_i %>">
+                  <%= task.description %> (<%= (task.due_date - Date.today).to_i >= 0 ? (task.due_date - Date.today).to_i : "Overdue by #{(task.due_date - Date.today).to_i.abs}" %>
+                  days) <%= names_to_display(task) %></p>
 
                 <div style="display: inline-block; position: relative; margin-left: -75px;">
                   <%= button_to "Delete", {controller: :tasks, action: 'destroy', id: task.id}, :method => :delete, class: "delete-button"%>
