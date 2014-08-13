@@ -56,4 +56,8 @@ $(document).ready(function(){
     }
   });
 
+  var $input = $('#task_list_name')
+  if ($input.val() == ""){
+    $input.parents('form').find('#submit-form-button').prop("disabled", true);
+  }
 });
