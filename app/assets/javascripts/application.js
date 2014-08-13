@@ -58,10 +58,12 @@ $(document).ready(function(){
 
   var $input = $('#task_list_name');
   $input.parents('form').find('#submit-form-button').prop("disabled", true);
-  $input.keyup(function(){
+  $input.bind('keyup focusout', function(){
     if ($input.val() == ""){
       $input.parents('form').find('#submit-form-button').prop("disabled", true);
+      descrip_error.insertBefore($('form'));
     } else {
+      $('.errors').remove();
       $input.parents('form').find('#submit-form-button').removeAttr("disabled");
     }
   });
