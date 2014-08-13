@@ -21,6 +21,10 @@
   <button>Search</button>
 </form>
 
+<% if flash[:notice] %>
+   <p class="flash"><span style="background-color: lightgreen; border: solid green 2px; padding: 10px"><%= flash[:notice] %></span></p>
+<% end %>
+
 <% if @filtered %>
   <% if @filtered.is_a?(Array) %>
     <p style="color: blue; font-size: 15px">Tasks due between <span style="color: red; font-weight: bold;"><%= @filtered[0] %></span> and <span style="color: red; font-weight: bold;"><%= @filtered[1] %></span></p>
@@ -30,11 +34,6 @@
 
   <% @tasks.each do |task| %>
     <p class="task" style="display: inline-block"><%= task.description %> (<%= (task.due_date - Date.today).to_i %> days) <%= names_to_display(task) %></p>
-  <% end %>
-
-
-    <% flash.each do |type, msg| %>
-    <p class="flash"><span style="background-color: lightgreen; border: solid green 2px; padding: 10px"><%= msg %></span></p>
   <% end %>
 
 <% else %>

@@ -9,6 +9,13 @@ $(function() {
 });
 
 $(document).ready(function(){
+
+  $('.flash').delay(500).hide(400);
+
+  $('.flash').click(function(){
+    $(this).hide();
+  });
+
   var $tasks = $('.task').hide();
   var $deletes = $('.delete-button').hide();
   var $completes = $('.complete-button').hide();
