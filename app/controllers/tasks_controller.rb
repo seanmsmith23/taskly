@@ -19,12 +19,16 @@ class TasksController < ApplicationController
                          assigned_to_3: params[:task][:assigned_to_3],
                          assigned_to_4: params[:task][:assigned_to_4])
 
-    if @task.valid?
-      @task.save
-      redirect_to root_path, notice: "Task was created successfully!"
-    else
-      render :new, alert: "Your task could not be created"
+    respond_to do |format|
+      format.html { if @task.valid?
+                      @task.save
+                      redirect_to root_path, notice: "Task was created successfully!"
+                    else
+                      render :new, alert: "Your task could not be created"
+                    end }
+      format.js
     end
+
   end
 
   def destroy

@@ -91,24 +91,42 @@ $(document).ready(function(){
       $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
       descrip_error.insertBefore($('form'));
       assign_error.insertBefore($('form'));
-      $description.parents('form').find('#all_assignees').wrap(form_error);
-      $description.parents('form').find('#task_description').wrap(form_error);
-      $description.parents('form').find('#all_assignees').wrap(form_error);
+
+      if ($description.parents('form').find('div').hasClass('form-errors')){
+        console.log("Doing nothing")
+      }
+      else {
+        $description.parents('form').find('#task_description').wrap(form_error);
+        $description.parents('form').find('#all_assignees').wrap(form_error);
+      }
     }
     else if ($description.val() == "") {
       $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
       $('.errors').remove();
+      $description.parents('form').find('#all_assignees').parent('.form-errors').removeClass('form-errors');
       descrip_error.insertBefore($('form'));
-      $description.parents('form').find('#task_description').wrap(form_error);
+      if ($description.parents('form').find('div').hasClass('form-errors')){
+        console.log("Doing nothing")
+      } else {
+        $description.parents('form').find('#task_description').wrap(form_error);
+      }
     }
     else if ($a1.val() == "" && $a2.val() == "" && $a3.val() == "" && $a4.val() == "") {
       $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
       $('.errors').remove();
+      $description.parents('form').find('#task_description').parent('.form-errors').removeClass('form-errors');
+
       assign_error.insertBefore($('form'));
-      $description.parents('form').find('#all_assignees').wrap(form_error);
+      if ($description.parents('form').find('div').hasClass('form-errors')){
+        console.log("Doing nothing")
+      } else {
+        $description.parents('form').find('#all_assignees').wrap(form_error);
+      }
     }
     else {
       $('.errors').remove();
+      $description.parents('form').find('#task_description').parent('.form-errors').removeClass('form-errors');
+      $description.parents('form').find('#all_assignees').parent('.form-errors').removeClass('form-errors');
       $description.parents('form').find('#create-task-button').removeAttr("disabled");
       $description.parents('.container').remove('.errors');
       $description.parents('form').find('#create-task-button').click(function(){
