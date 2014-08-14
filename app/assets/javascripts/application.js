@@ -152,11 +152,18 @@ $(document).ready(function(){
     $('.task').each(function(){
       var taskString = $(this).attr('data-task-name');
       if ( taskString.indexOf(filterString) >= 0 ){
-        $(this).parents('.task-container').show();
+        $(this).parents('.task-container').removeClass('noFilter').show();
       }
       else {
-        $(this).parents('.task-container').hide();
+        $(this).parents('.task-container').addClass('noFilter').hide();
       }
+      $('.this-task-list').each(function(){
+        if ( $(this).find('.task').length == $(this).find('.noFilter').length ){
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      });
     });
   });
 
