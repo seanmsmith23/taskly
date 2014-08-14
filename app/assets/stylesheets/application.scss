@@ -19,6 +19,11 @@
   }
 }
 
+.form-errors {
+  border: 1px solid red;
+  display: inline-block;
+}
+
 .ui-datepicker {
   background: lightblue;
 }

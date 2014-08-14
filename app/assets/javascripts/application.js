@@ -83,6 +83,7 @@ $(document).ready(function(){
 
   var descrip_error = $("<p>Must have a description</p>").addClass("errors");
   var assign_error = $("<p>Must assign a user</p>").addClass("errors");
+  var form_error = $("<div></div>").addClass("form-errors");
 
   $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
   formElements.bind('focusout keyup', function(){
@@ -90,21 +91,29 @@ $(document).ready(function(){
       $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
       descrip_error.insertBefore($('form'));
       assign_error.insertBefore($('form'));
+      $description.parents('form').find('#all_assignees').wrap(form_error);
+      $description.parents('form').find('#task_description').wrap(form_error);
+      $description.parents('form').find('#all_assignees').wrap(form_error);
     }
     else if ($description.val() == "") {
       $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
       $('.errors').remove();
       descrip_error.insertBefore($('form'));
+      $description.parents('form').find('#task_description').wrap(form_error);
     }
     else if ($a1.val() == "" && $a2.val() == "" && $a3.val() == "" && $a4.val() == "") {
       $description.parents('form').find('#create-task-button').attr("disabled", "disabled");
       $('.errors').remove();
       assign_error.insertBefore($('form'));
+      $description.parents('form').find('#all_assignees').wrap(form_error);
     }
     else {
       $('.errors').remove();
       $description.parents('form').find('#create-task-button').removeAttr("disabled");
       $description.parents('.container').remove('.errors');
+      $description.parents('form').find('#create-task-button').click(function(){
+        $description.parents('form').find('#create-task-button').removeAttr("disabled");
+      });
     }
   });
 

@@ -20,6 +20,7 @@
 
   <p style="color:red; font-weight: bold"><%= @task.errors[:assigned_to].first if @task.errors[:assigned_to] != [] %></p>
 
+  <div id="all_assignees">
     <div style="display:inline-block">
       <%= f.label :assigned_to %><br>
       <%= f.collection_select(:assigned_to, @users, :name, :name, {include_blank: true} ) %>
@@ -36,6 +37,7 @@
       <%= f.label :assigned_to %><br>
       <%= f.collection_select(:assigned_to_4, @users, :name, :name, {include_blank: true} ) %>
     </div>
+  </div>
   <br><br>
 
   <%= f.submit "Create Task", id: "create-task-button" %>
