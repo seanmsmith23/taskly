@@ -15,9 +15,9 @@
 
 <p style="font-weight: bold;">Filter Tasks by Task Name</p>
 
-<form action="/task_lists" method="get">
+<form action="/task_lists" method="get" id="search_form">
   <label>Name Search</label>
-  <input type="text" name="name_search">
+  <input type="text" name="name_search" id="search_input">
   <button>Search</button>
 </form>
 
@@ -59,23 +59,26 @@
           <% if task_list.tasks != [] %>
             <% task_list.tasks.order(:due_date).each do |task| %>
 
+
               <% unless task.completed %>
+                <div class="task-container">
+                  <p class="task" data-task-id="<%= task_list.id %>" data-task-name="<%= task.description %>" data-due-date="<%= (task.due_date - Date.today).to_i %>">
+                    <%= task.description %>
+                    (<%= (task.due_date - Date.today).to_i >= 0 ? (task.due_date - Date.today).to_i : "Overdue by #{(task.due_date - Date.today).to_i.abs}" %>
+                    days) <%= names_to_display(task) %></p>
 
-                <p class="task" data-task-id="<%= task_list.id %>" data-due-date="<%= (task.due_date - Date.today).to_i %>">
-                  <%= task.description %> (<%= (task.due_date - Date.today).to_i >= 0 ? (task.due_date - Date.today).to_i : "Overdue by #{(task.due_date - Date.today).to_i.abs}" %>
-                  days) <%= names_to_display(task) %></p>
-
-                <div style="display: inline-block; position: relative; margin-left: -75px;">
-                  <%= button_to "Delete", {controller: :tasks, action: 'destroy', id: task.id}, :method => :delete, class: "delete-button"%>
-                </div>
-                <div style="display: inline-block; position: relative; margin-left: -150px;">
-                  <%= button_to "Complete", {:controller => :completed,
-                                           :action => 'create',
-                                           :task_list_id => task.id }, :method => :post, class: "complete-button"%>
+                  <div style="display: inline-block; position: relative; margin-left: -75px;" id="task_delete_form">
+                    <%= button_to "Delete", {controller: :tasks, action: 'destroy', id: task.id}, :method => :delete, class: "delete-button", 'data-task-name' => "#{task.description}" %>
+                  </div>
+                  <div style="display: inline-block; position: relative; margin-left: -150px;" id="task_complete_form">
+                    <%= button_to "Complete", {:controller => :completed,
+                                               :action => 'create',
+                                               :task_list_id => task.id}, :method => :post, class: "complete-button", 'data-task-name' => "#{task.description}" %>
+                  </div>
                 </div>
               <% end %>
             <% end %>
-            <% end %>
+          <% end %>
           <% if task_list.tasks.where(completed: true).length == task_list.tasks.length %>
             <p class="task" style="text-align: center"><i>Nothing here to see!</i></p>
           <% end %>

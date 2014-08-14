@@ -16,9 +16,9 @@ $(document).ready(function(){
     $(this).hide();
   });
 
-  $('.task').hide();
-  $('.delete-button').hide();
-  $('.complete-button').hide();
+//  $('.task').hide();
+//  $('.delete-button').hide();
+//  $('.complete-button').hide();
 
   $('.expand-list').click(function(){
     var $clicked = $(this);
@@ -138,11 +138,26 @@ $(document).ready(function(){
   $('.clear').click(function(){
     $('#task_list_name').val("");
     $description.val("");
-    $a1.val("")
-    $a2.val("")
-    $a3.val("")
+    $a1.val("");
+    $a2.val("");
+    $a3.val("");
     $a4.val("")
   });
 
+  var $filter = $('#search_input');
+
+  $filter.on('keyup', function(){
+    var filterString = $('#search_input').val();
+//    debugger;
+    $('.task').each(function(){
+      var taskString = $(this).attr('data-task-name');
+      if ( taskString.indexOf(filterString) >= 0 ){
+        $(this).parents('.task-container').show();
+      }
+      else {
+        $(this).parents('.task-container').hide();
+      }
+    });
+  });
 
  });
