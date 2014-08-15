@@ -54,6 +54,9 @@ $(document).ready(function(){
     else if ($this.attr('data-due-date') < 0 ){
       $this.parents('.this-task-list').find('.task').css('background-color', 'lightcoral');
     }
+    else {
+      $this.parents('.this-task-list').find('.task').css('background-color', 'lightgreen');
+    }
   });
 
   var $input = $('#task_list_name');
