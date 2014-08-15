@@ -147,10 +147,10 @@ $(document).ready(function(){
   var $filter = $('#search_input');
 
   $filter.on('keyup', function(){
-    var filterString = $('#search_input').val();
+    var filterString = $('#search_input').val().toUpperCase();
 //    debugger;
     $('.task').each(function(){
-      var taskString = $(this).attr('data-task-name');
+      var taskString = $(this).attr('data-task-name').toUpperCase();
       if ( taskString.indexOf(filterString) >= 0 ){
         $(this).parents('.task-container').removeClass('noFilter').show();
       }
