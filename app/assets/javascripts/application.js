@@ -146,7 +146,7 @@ $(document).ready(function(){
 
   var $filter = $('#search_input');
 
-  $filter.on('keyup', function(){
+  $filter.bind('keyup blur', function(){
     var filterString = $('#search_input').val().toUpperCase();
 //    debugger;
     $('.task').each(function(){
@@ -165,6 +165,11 @@ $(document).ready(function(){
         }
       });
     });
+  });
+
+  $('.clear-filter').click(function(){
+    $('#search_input').val("");
+    $filter.trigger('keyup');
   });
 
  });
